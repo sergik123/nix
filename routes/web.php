@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UsersController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,9 +17,12 @@ use App\Http\Controllers\HomeController;
 Route::get('/', [IndexController::class, 'main'])->name('home');
 Route::get('/search',  [IndexController::class, 'search'])->name('search');
 Route::get('/filter', [IndexController::class, 'filter'])->name('filter');
-Route::get('/users', function () {
-    return view('users');
-});
+Route::get('/users', [UsersController::class, 'users'])->name('users');
+Route::post('/change', [UsersController::class, 'change']);
+Route::post('/add', [UsersController::class, 'add']);
+Route::get('/search_user',  [UsersController::class, 'search']);
+Route::get('/filter_user', [UsersController::class, 'filter']);
+
 
 
 Auth::routes(['verify' => true]);
