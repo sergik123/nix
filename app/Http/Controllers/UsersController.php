@@ -40,7 +40,6 @@ class UsersController extends Controller
         }
     }
     public function add(Request $request){
-
         $validatedata=$this->validate($request,[
             'name'=>'required|max:255',
             'email'=>'required|unique:users,email',

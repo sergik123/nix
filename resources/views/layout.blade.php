@@ -24,9 +24,11 @@
                 <li class="nav-item {{ (request()->segment(1)==NULL) ? 'active' : '' }}">
                     <a class="nav-link" href="{{ url('/') }}">Главная</a>
                 </li>
+                @role('admin')
                 <li class="nav-item {{ (request()->segment(1)=='users') ? 'active' : '' }}">
                     <a class="nav-link" href="{{ url('/users') }}">Пользователи</a>
                 </li>
+                @endrole
             </ul>
 
             <!-- Right Side Of Navbar -->
