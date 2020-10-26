@@ -119,7 +119,7 @@ foreach ($books as $book){
 @role('admin')
 <hr>
 <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm-6" style="border: 1px solid black;">
         <label id="lbl_usr">Изменить книгу</label>
         <form enctype="multipart/form-data" id="mymodal" action="/changebook" method="post" >
             @csrf
@@ -151,23 +151,31 @@ foreach ($books as $book){
         </form>
     </div>
 
-    <div class="col-sm-6">
+    <div class="col-sm-6" style="border: 1px solid black;">
         <label id="lbl_usr">создание новой книги</label>
-        <form id="mymodal" action="/addbook" method="post" >
+        <form enctype="multipart/form-data" id="mymodal" action="/addbook" method="post" >
             @csrf
             <div class="form-group">
-                <label for="exampleInputEmail1">Email address</label>
-                <input type="email"  name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <label for="exampleInputEmail1">Name</label>
+                <input type="text"  name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
             </div>
             <div class="form-group">
-                <label for="exampleInputPassword1">name</label>
-                <input type="text"  name="name" class="form-control" id="exampleInputPassword1">
+                <label for="exampleInputPassword1">author</label>
+                <input type="text"  name="author" class="form-control" id="exampleInputPassword1" >
             </div>
             <div class="form-group">
-                <label for="exampleInputPassword1">password</label>
-                <input type="password"  name="password" class="form-control" id="exampleInputPassword1">
+                <label for="exampleInputPassword1">description</label>
+                <input type="text"  name="description" class="form-control" id="exampleInputPassword1" >
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <div class="form-group">
+                <label for="exampleInputPassword1">cover</label>
+                <input type="file"  accept="image/jpeg" name="cover" class="form-control" id="exampleInputPassword1" >
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">category</label>
+                <input type="text"  name="category" class="form-control" id="exampleInputPassword1">
+            </div>
+            <button type="submit" class="btn btn-primary">Сохранить</button>
         </form>
     </div>
 </div>
