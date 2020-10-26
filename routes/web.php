@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\BooksController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,6 +24,8 @@ Route::post('/add', [UsersController::class, 'add']);
 Route::get('/search_user',  [UsersController::class, 'search']);
 Route::get('/filter_user', [UsersController::class, 'filter']);
 
+Route::post('/changebook', [BooksController::class, 'change']);
+Route::post('/addbook', [BooksController::class, 'add']);
 
 
 Auth::routes(['verify' => true]);

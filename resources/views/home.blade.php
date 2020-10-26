@@ -42,6 +42,27 @@
         </div>
     </div>
 </form>
+@role('admin')
+@php
+    /**@var \Illuminate\Support\ViewErrorBag $errors */
+@endphp
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+@if(session('success'))
+    <div class="alert alert-success">
+        <ul>
+            <li>{{ session()->get('success') }}</li>
+        </ul>
+    </div>
+@endif
+@endrole
     <table class="table">
         <thead class="thead-dark">
         <tr>
@@ -58,11 +79,11 @@
       foreach ($books as $book):?>
       <?php $img='photos/'.$book->cover.'.jpg';?>
       <tr>
-          <th><?php echo $book->id;?></th>
+          <th><a href="?sort=<?=$url;?>&page=<?=$page;?>&id={{$book->id}}"><?php echo $book->id;?></a></th>
           <td><?php echo $book->name;?></td>
           <td><?php echo $book->author;?></td>
           <td><?php echo $book->description;?></td>
-          <td><img src="<?=$img;?>" style="width: 50px; height: 70px;"/></td>
+          <td><img src="{{ asset($img) }}" style="width: 50px; height: 70px;"/></td>
           <td><?php echo $book->category;?></td>
       </tr>
       <?php endforeach;
@@ -77,4 +98,78 @@
     <?php }?>
 </div>
 
+<?php
+$id='';
+$name='';
+$author='';
+$descr='';
+$cover='';
+$category='';
+foreach ($books as $book){
+    if($book->id==request()->get('id')){
+        $name=$book->name;
+        $author=$book->author;
+        $descr=$book->description;
+        $cover=$book->cover;
+        $category=$book->category;
+        $id=$book->id;
+    }
+}
+?>
+@role('admin')
+<hr>
+<div class="row">
+    <div class="col-sm-6">
+        <label id="lbl_usr">Изменить книгу</label>
+        <form enctype="multipart/form-data" id="mymodal" action="/changebook" method="post" >
+            @csrf
+            <div class="form-group">
+                <input type="hidden" name="id" value="{{$id}}">
+                <input type="hidden" name="cover_old" value="{{$cover}}">
+                <label for="exampleInputEmail1">Name</label>
+                <input type="text"  name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$name}}">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">author</label>
+                <input type="text"  name="author" class="form-control" id="exampleInputPassword1" value="{{$author}}">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">description</label>
+                <input type="text"  name="description" class="form-control" id="exampleInputPassword1" value="{{$descr}}">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">cover</label>
+                <input type="file"  accept="image/jpeg" name="cover" class="form-control" id="exampleInputPassword1" value="{{$cover}}">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">category</label>
+                <input type="text"  name="category" class="form-control" id="exampleInputPassword1" value="{{$category}}">
+            </div>
+            <button type="submit" class="btn btn-primary">Изменить</button>
+
+            <button type="submit" name="delete" class="btn btn-primary" value="delete" style="float: right;">Удалить</button>
+        </form>
+    </div>
+
+    <div class="col-sm-6">
+        <label id="lbl_usr">создание новой книги</label>
+        <form id="mymodal" action="/addbook" method="post" >
+            @csrf
+            <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label>
+                <input type="email"  name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">name</label>
+                <input type="text"  name="name" class="form-control" id="exampleInputPassword1">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">password</label>
+                <input type="password"  name="password" class="form-control" id="exampleInputPassword1">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+@endrole
 @endsection
