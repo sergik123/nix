@@ -5,6 +5,9 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\BooksController;
+use App\Http\Controllers\Auth\LoginController;
+use Illuminate\Support\Facades\URL;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,9 +31,14 @@ Route::post('/changebook', [BooksController::class, 'change']);
 Route::post('/addbook', [BooksController::class, 'add']);
 
 
+Route::get('login/{website}', [LoginController::class, 'redirectToProvider']);
+Route::get('login/{website}/callback', [LoginController::class, 'handleProviderCallback']);
+
+
 Auth::routes(['verify' => true]);
 
 Route::get('/',[IndexController::class, 'main'])->middleware('verified')->name('home');
+
 
 /*Route::get('/login', function () {
     return view('welcome');

@@ -10,7 +10,12 @@
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
-
+                        <div style="text-align: center;margin-bottom: 20px;">
+                            login using
+                            <a href="/login/github">GitHub</a>
+                            <a href="/login/google">Google</a>
+                            <a href="/login/facebook">Facebook</a>
+                        </div>
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
