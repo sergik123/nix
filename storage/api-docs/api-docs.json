@@ -1,0 +1,184 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Laravel Swagger API documentation",
+        "contact": {
+            "email": "admin@example.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000/api",
+            "description": "Laravel Swagger API server"
+        }
+    ],
+    "paths": {
+        "/examples": {
+            "get": {
+                "tags": [
+                    "Examples"
+                ],
+                "summary": "Display a listing of the resource",
+                "operationId": "examplesAll",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "The page number",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Everything is fine"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Examples"
+                ],
+                "summary": "Create yet another example record",
+                "operationId": "exampleCreate",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ExampleStoreRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Everything is fine"
+                    }
+                }
+            }
+        },
+        "/examples/{id}": {
+            "put": {
+                "tags": [
+                    "Examples"
+                ],
+                "summary": "Update example by ID",
+                "operationId": "examplesUpdate",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The ID of example",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ExampleStoreRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Everything is fine"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Examples"
+                ],
+                "summary": "Delete example by ID",
+                "operationId": "examplesDelete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The ID of example",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "Deleted"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "ExampleStoreRequest": {
+                "title": "Example storring request",
+                "description": "Some simple request createa as example",
+                "properties": {
+                    "name": {
+                        "title": "Name",
+                        "description": "Name of key for storring",
+                        "type": "string",
+                        "example": "random"
+                    },
+                    "author": {
+                        "title": "Author",
+                        "description": "author for storring",
+                        "type": "string",
+                        "example": "awesome"
+                    },
+                    "description": {
+                        "title": "Description",
+                        "description": "description for storring",
+                        "type": "string",
+                        "example": "awesome"
+                    },
+                    "category": {
+                        "title": "Category",
+                        "description": "Category for storring",
+                        "type": "string",
+                        "example": "awesome"
+                    },
+                    "cover": {
+                        "title": "Cover",
+                        "description": "Cover for storring",
+                        "type": "string",
+                        "example": "awesome"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Examples",
+            "description": "Everything about your Books"
+        }
+    ],
+    "security": [
+        []
+    ]
+}
