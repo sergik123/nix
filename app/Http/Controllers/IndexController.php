@@ -13,10 +13,11 @@ class IndexController extends Controller
     public function main(){
         if(isset($_GET['sort'])){
             $sort=$_GET['sort'];
+
         }else{
             $sort='id';
         }
-        $data=DB::table('books')->orderBy($sort)->simplePaginate(15);
+        $data=DB::table('books')->orderBy($sort)->Paginate(15);
         return view('home')->with('books', $data);
     }
     public function search(Request $request){

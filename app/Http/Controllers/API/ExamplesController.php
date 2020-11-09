@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Requests\ExampleStoreRequest;
 use App\Models\Books;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response as HttpResponse;
 use Illuminate\Http\Request;
 
@@ -38,8 +39,14 @@ class ExamplesController extends Controller
      */
     public function index()
     {
-        $model = Books::query()->paginate(5);
-        return response()->json($model);
+        if(isset($_GET['sort'])){
+            $sort=$_GET['sort'];
+
+        }else{
+            $sort='id';
+        }
+        $data=Books::query()->orderBy($sort)->paginate(15);
+        return response()->json($data);
     }
 
     /**
@@ -77,7 +84,8 @@ class ExamplesController extends Controller
      */
     public function show($id)
     {
-        //
+        $model = Books::query()->findOrFail($id);
+        return response()->json($model);
     }
 
     /**

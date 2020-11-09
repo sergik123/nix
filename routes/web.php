@@ -37,7 +37,7 @@ Route::get('login/{website}/callback', [LoginController::class, 'handleProviderC
 
 Auth::routes(['verify' => true]);
 
-Route::get('/',[IndexController::class, 'main'])->middleware('verified')->name('home');
+Route::get('/',[IndexController::class, 'main'])->middleware('verified')->name('home2');
 
 
 /*Route::get('/login', function () {
@@ -48,3 +48,10 @@ Route::get('/',[IndexController::class, 'main'])->middleware('verified')->name('
     return view('auth.verify-email');
 })->middleware(['auth'])->name('verification.notice');
 */
+
+//Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\IndexController::class, 'main'])->middleware('verified')->name('home3');
+Route::get('/{any}', function () {
+    return view('home');
+})->where('any', '.*');

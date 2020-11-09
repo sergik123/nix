@@ -1,4 +1,5 @@
 @extends('layout')
+
 @section('container')
 <?php if(isset($_GET['sort'])){
     $url=$_GET['sort'];
@@ -63,41 +64,10 @@
     </div>
 @endif
 @endrole
-    <table class="table">
-        <thead class="thead-dark">
-        <tr>
-            <th scope="col"><a href="?sort=id&page=<?=$page;?>">id</a></th>
-            <th scope="col"><a href="?sort=name&page=<?=$page;?>">name</a></th>
-            <th scope="col"><a href="?sort=author&page=<?=$page;?>">author</a></th>
-            <th scope="col">description</th>
-            <th scope="col">cover</th>
-            <th scope="col"><a href="?sort=category&page=<?=$page;?>">category</a></th>
-        </tr>
-        </thead>
-        <tbody>
-      <?php if(!empty($books)){
-      foreach ($books as $book):?>
-      <?php $img='photos/'.$book->cover.'.jpg';?>
-      <tr>
-          <th><a href="?sort=<?=$url;?>&page=<?=$page;?>&id={{$book->id}}"><?php echo $book->id;?></a></th>
-          <td><?php echo $book->name;?></td>
-          <td><?php echo $book->author;?></td>
-          <td><?php echo $book->description;?></td>
-          <td><img src="{{ asset($img) }}" style="width: 50px; height: 70px;"/></td>
-          <td><?php echo $book->category;?></td>
-      </tr>
-      <?php endforeach;
-      }?>
-
-        </tbody>
-
-    </table>
-<div>
-<?php if(!empty($books)){ ?>
-    {{ $books->appends(['sort'=>$url])->links() }}
-    <?php }?>
+<div id="app">
+    <table-component></table-component>
+    <router-view></router-view>
 </div>
-
 <?php
 $id='';
 $name='';
@@ -180,4 +150,12 @@ foreach ($books as $book){
     </div>
 </div>
 @endrole
+
+<script src="./js/app.js"></script>
+
 @endsection
+
+
+
+
+
